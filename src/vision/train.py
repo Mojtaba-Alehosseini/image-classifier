@@ -21,7 +21,7 @@ from vision.model import (
     unfreeze_all,
 )
 
-ROOT = Path(__file__).parents[3]
+ROOT = Path(__file__).parents[2]
 METRICS_PATH = ROOT / "reports" / "train_metrics.json"
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"

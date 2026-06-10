@@ -25,7 +25,7 @@ from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
 from vision.data import get_transforms
 from vision.model import load_checkpoint
 
-ROOT = Path(__file__).parents[3]
+ROOT = Path(__file__).parents[2]
 REPORTS = ROOT / "reports"
 
 

@@ -17,7 +17,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.datasets import Flowers102
 
-ROOT = Path(__file__).parents[3]
+ROOT = Path(__file__).parents[2]
 DATA_DIR = ROOT / "data"
 
 NUM_CLASSES = 102

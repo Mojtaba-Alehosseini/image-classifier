@@ -29,7 +29,7 @@ from sklearn.metrics import (
 from vision.data import get_dataloaders
 from vision.model import CHECKPOINT_PATH, load_checkpoint
 
-ROOT = Path(__file__).parents[3]
+ROOT = Path(__file__).parents[2]
 REPORTS = ROOT / "reports"
 
 

@@ -10,7 +10,7 @@ import torch.nn as nn
 
 from vision.data import NUM_CLASSES
 
-ROOT = Path(__file__).parents[3]
+ROOT = Path(__file__).parents[2]
 CHECKPOINT_PATH = ROOT / "models" / "best.pt"
 
 
