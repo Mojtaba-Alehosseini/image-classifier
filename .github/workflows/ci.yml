@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install timm "grad-cam" scikit-learn gradio pillow matplotlib pytest ruff
+          pip install -e .
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: pytest -q
