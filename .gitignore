@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.ruff_cache/
+.pytest_cache/
+.env
+# Raw dataset files (re-downloadable via torchvision)
+data/flowers-102/
+# Large checkpoint: committed if ≤50 MB; otherwise push to HF Hub
