@@ -18,6 +18,8 @@ ship a drag-and-drop Gradio demo.
 
 Numbers come from `reports/test_metrics.json` and `reports/train_metrics.json`, both committed.
 
+> **Note on top-k accuracy:** For 102 classes, top-5 accuracy (was the true species among the 5 highest-confidence guesses?) is a standard supplementary metric. Use `evaluate.top_k_accuracy(labels, logits, k=5)` — implemented and tested.
+
 ## Grad-CAM example
 
 ```
@@ -111,3 +113,7 @@ pytest -q
 
 Oxford 102 Category Flower Dataset — used for non-commercial research (Maria-Elena Nilsback
 and Andrew Zisserman, 2008). Model weights via timm (Apache-2.0). Code: MIT — see [LICENSE](LICENSE).
+
+---
+
+*Built by [Mojtaba Alehosseini](https://github.com/Mojtaba-Alehosseini) — data scientist.*

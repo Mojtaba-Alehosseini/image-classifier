@@ -29,6 +29,20 @@ from sklearn.metrics import (
 from vision.data import get_dataloaders
 from vision.model import CHECKPOINT_PATH, load_checkpoint
 
+
+def top_k_accuracy(labels: list[int], logits: np.ndarray, k: int = 5) -> float:
+    """Fraction of samples where the true class is in the top-k predicted classes.
+
+    A fairer secondary metric for 102-class flower classification — knowing the right
+    species is 'plausible' (in top-5 guesses) is meaningful even when top-1 fails.
+    """
+    top_k_preds = np.argsort(logits, axis=1)[:, -k:]  # shape (N, k), ascending sort
+    correct = sum(
+        int(label) in top_k_preds[i].tolist()
+        for i, label in enumerate(labels)
+    )
+    return correct / len(labels) if labels else 0.0
+
 ROOT = Path(__file__).parents[2]
 REPORTS = ROOT / "reports"
 
