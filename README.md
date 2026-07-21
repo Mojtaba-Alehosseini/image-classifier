@@ -27,8 +27,8 @@ python -m vision.cam --image path/to/flower.jpg
 # → reports/cam_<name>.png  (original + heatmap side-by-side)
 ```
 
-The heatmap confirms the model attends to petals/stamens, not background — consistent
-with what Grad-CAM should surface for a fine-grained species classifier.
+The heatmap confirms the model attends to petals and stamens rather than background, which is
+what you'd want to see from a fine-grained species classifier.
 
 ## Architecture
 
@@ -88,32 +88,37 @@ python app.py
 | Fine-tune | 6 | 0.954 | 0.814 |
 | Fine-tune | 7 | 0.988 | 0.845 |
 | Fine-tune | 8 | 1.000 | 0.849 |
-| **Fine-tune** | **9** | **0.999** | **0.862** ✓ checkpoint |
-| Fine-tune | 10 | — | — |
+| **Fine-tune** | **9** | **0.999** | **0.862** (checkpoint) |
+
+Epoch 9 held the best validation macro-F1 at 0.862, so that's the checkpoint that ships;
+`reports/train_metrics.json` records `best_epoch: 9`. Per-epoch rows above were captured from
+the training log, and only the best-epoch summary is persisted to disk.
 
 ## Error analysis (where it fails)
 
-The confusion matrix (`reports/confusion_matrix.png`) shows most errors cluster
-between visually similar species — e.g., rose vs. lenten rose, or different dahlia
-varieties. Root cause: 10 training images per class is very few for fine-grained
-distinctions at the petal level. Remedies: more augmentation, test-time augmentation,
-or a larger training split.
+The confusion matrix (`reports/confusion_matrix.png`) shows most errors clustering between
+visually similar species: rose against lenten rose, or one dahlia variety against another.
+The root cause is simply that 10 training images per class is very little to learn
+petal-level distinctions from. More augmentation, test-time augmentation, or a larger
+training split would all help.
 
 ## Tests
 
 ```bash
 pytest -q
-# 9 passed
+# 15 passed
 ```
 
-- `test_data.py` — transform shapes, eval determinism, no random aug at test time
-- `test_model.py` — output shape, freeze/unfreeze param counts, checkpoint round-trip
+- `test_data.py` covers transform shapes, eval determinism, and no random aug at test time
+- `test_model.py` covers output shape, freeze/unfreeze param counts, checkpoint round-trip
+- `test_evaluate.py` covers `top_k_accuracy`, hermetic (no model or dataset download)
 
 ## Dataset & licence
 
-Oxford 102 Category Flower Dataset — used for non-commercial research (Maria-Elena Nilsback
-and Andrew Zisserman, 2008). Model weights via timm (Apache-2.0). Code: MIT — see [LICENSE](LICENSE).
+Oxford 102 Category Flower Dataset, used for non-commercial research (Maria-Elena Nilsback
+and Andrew Zisserman, 2008). Model weights via timm (Apache-2.0). Code is MIT, see
+[LICENSE](LICENSE).
 
 ---
 
-*Built by [Mojtaba Alehosseini](https://github.com/Mojtaba-Alehosseini) — data scientist.*
+Built by [Mojtaba Alehosseini](https://github.com/Mojtaba-Alehosseini), data scientist.
