@@ -1,4 +1,4 @@
-# Image Classifier — Transfer Learning + Grad-CAM
+# Image Classifier: Transfer Learning + Grad-CAM
 
 Fine-tune EfficientNet-B0 on Oxford Flowers102 (102 flower species); evaluate with
 confusion matrix and per-class F1; explain every prediction with Grad-CAM;
@@ -12,13 +12,13 @@ ship a drag-and-drop Gradio demo.
 | Test macro-F1 | **0.833** |
 | Test weighted-F1 | 0.837 |
 | Best val macro-F1 (epoch 9) | 0.862 |
-| Dataset | Flowers102 — 1,020 train / 1,020 val / 6,149 test |
+| Dataset | Flowers102: 1,020 train / 1,020 val / 6,149 test |
 | Backbone | EfficientNet-B0 (timm, pretrained ImageNet) |
 | Training | 5 head-only epochs + 5 fine-tune epochs, CPU |
 
 Numbers come from `reports/test_metrics.json` and `reports/train_metrics.json`, both committed.
 
-> **Note on top-k accuracy:** For 102 classes, top-5 accuracy (was the true species among the 5 highest-confidence guesses?) is a standard supplementary metric. Use `evaluate.top_k_accuracy(labels, logits, k=5)` — implemented and tested.
+> **Note on top-k accuracy:** For 102 classes, top-5 accuracy (was the true species among the 5 highest-confidence guesses?) is a standard supplementary metric. Use `evaluate.top_k_accuracy(labels, logits, k=5)`; it is implemented and tested.
 
 ## Grad-CAM example
 
